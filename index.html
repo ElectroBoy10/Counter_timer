@@ -477,6 +477,25 @@
     gap: 5px;
     }
     }
+    footer {
+    background: var(--primary);
+    color: white;
+    padding: 3rem 1rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    }
+
+    footer::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: var(--bg-light);
+    transform: skewY(-2deg);
+    }
   </style>
 </head>
 <body>
@@ -1073,7 +1092,12 @@
                     <span class="copy-message">Copied!</span>
                   </div>
                 </section>
-              </main>
+                    <footer>
+                      <hr aria-hidden="true">
+                      <p>Made by <a href="https://mrbros1509.bio.link" target="_blank" rel="noopener">MrBros</a>
+                      </p>
+                    </footer>
+                 </main>
 
               <script>
                 document.addEventListener('DOMContentLoaded', () => {
