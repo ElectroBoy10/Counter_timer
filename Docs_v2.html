@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counter Component Documentation</title>
+  <style>
+    body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
+    scroll-behavior: smooth;
+    }
+
+    header {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 1.5rem 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    }
+
+    header h1 {
+    margin: 0;
+    font-size: 2.2em;
+    }
+
+    nav {
+    background-color: #f4f7f6;
+    padding: 0.8rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    top: 0;
+    width: 100%;
+    left: 0;
+    z-index: 999;
+    }
+
+    nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    }
+
+    nav ul li a {
+    color: #34495e;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 0.95em;
+    white-space: nowrap;
+    }
+
+    nav ul li a:hover,
+    nav ul li a:focus {
+    background-color: #2980b9;
+    color: #fff;
+    }
+
+    main {
+    padding: 140px 20px 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    }
+
+    section {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    }
+
+    section:last-of-type {
+    border-bottom: none;
+    }
+
+    h2 {
+    color: #2c3e50;
+    font-size: 1.8em;
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+    }
+
+    h3 {
+    color: #34495e;
+    font-size: 1.4em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    }
+
+    p {
+    margin-bottom: 1em;
+    }
+
+    ul {
+    list-style-type: disc;
+    margin-left: 25px;
+    margin-bottom: 1em;
+    }
+
+    ol {
+    list-style-type: decimal;
+    margin-left: 25px;
+    margin-bottom: 1em;
+    }
+
+    strong {
+    color: #4a688a;
+    }
+
+    .code-container {
+    position: relative;
+    background-color: #272c34;
+    color: #e0e6e7;
+    padding: 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+    line-height: 1.4;
+    overflow-x: auto;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    .code-container pre {
+    margin: 0;
+    padding: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    }
+
+    .code-container pre code {
+    display: block;
+    }
+
+    .copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: background-color 0.3s ease;
+    }
+
+    .copy-button:hover {
+    background-color: #2980b9;
+    }
+
+    .copy-message {
+    position: absolute;
+    top: 45px;
+    right: 10px;
+    background-color: #2ecc71;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    }
+
+    .copy-message.show {
+    opacity: 1;
+    }
+
+    .my-countdown-timer {
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    font-weight: bold;
+    color: #007bff;
+    background-color: #e9ecef;
+    padding: 2px 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+    display: inline-block;
+    min-width: 100px;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    vertical-align: middle;
+    border: 1px solid #dcdcdc;
+    }
+
+    @media (max-width: 768px) {
+    header h1 {
+    font-size: 1.8em;
+    }
+    nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    }
+    nav ul li a {
+    padding: 6px 12px;
+    font-size: 0.9em;
+    }
+    main {
+    padding-top: 180px;
+    }
+    h2 {
+    font-size: 1.6em;
+    }
+    h3 {
+    font-size: 1.2em;
+    }
+    .code-container {
+    padding: 10px;
+    }
+    .copy-button {
+    padding: 6px 10px;
+    font-size: 0.75em;
+    }
+    }
+    @media (max-width: 480px) {
+    main {
+    padding-top: 220px;
+    }
+    nav ul {
+    gap: 5px;
+    }
+    }
+    body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
+    scroll-behavior: smooth;
+    }
+
+    header {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 1.5rem 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    }
+
+    header h1 {
+    margin: 0;
+    font-size: 2.2em;
+    }
+
+    nav {
+    background-color: #f4f7f6;
+    padding: 0.8rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    top: 0;
+    width: 100%;
+    left: 0;
+    z-index: 999;
+    }
+
+    nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    }
+
+    nav ul li a {
+    color: #34495e;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 0.95em;
+    white-space: nowrap;
+    }
+
+    nav ul li a:hover,
+    nav ul li a:focus {
+    background-color: #2980b9;
+    color: #fff;
+    }
+
+    main {
+    
+    padding: 20px 20px 40px;
+    
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    }
+
+    section {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    }
+
+    section:last-of-type {
+    border-bottom: none;
+    }
+
+    h2 {
+    color: #2c3e50;
+    font-size: 1.8em;
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+    }
+
+    h3 {
+    color: #34495e;
+    font-size: 1.4em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    }
+
+    p {
+    margin-bottom: 1em;
+    }
+
+    ul {
+    list-style-type: disc;
+    margin-left: 25px;
+    margin-bottom: 1em;
+    }
+
+    ol {
+    list-style-type: decimal;
+    margin-left: 25px;
+    margin-bottom: 1em;
+    }
+
+    strong {
+    color: #4a688a;
+    }
+
+    .code-container {
+    position: relative;
+    background-color: #272c34;
+    color: #e0e6e7;
+    padding: 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+    line-height: 1.4;
+    overflow-x: auto;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    .code-container pre {
+    margin: 0;
+    padding: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    }
+
+    .code-container pre code {
+    display: block;
+    }
+
+    .copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: background-color 0.3s ease;
+    }
+
+    .copy-button:hover {
+    background-color: #2980b9;
+    }
+
+    .copy-message {
+    position: absolute;
+    top: 45px;
+    right: 10px;
+    background-color: #2ecc71;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    }
+
+    .copy-message.show {
+    opacity: 1;
+    }
+
+    .my-countdown-timer {
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    font-weight: bold;
+    color: #007bff;
+    background-color: #e9ecef;
+    padding: 2px 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+    display: inline-block;
+    min-width: 100px;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    vertical-align: middle;
+    border: 1px solid #dcdcdc;
+    }
+
+    @media (max-width: 768px) {
+    header h1 {
+    font-size: 1.8em;
+    }
+    nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    }
+    nav ul li a {
+    padding: 6px 12px;
+    font-size: 0.9em;
+    }
+    main {
+    
+    padding-top: 20px;
+    
+    }
+    h2 {
+    font-size: 1.6em;
+    }
+    h3 {
+    font-size: 1.2em;
+    }
+    .code-container {
+    padding: 10px;
+    }
+    .copy-button {
+    padding: 6px 10px;
+    font-size: 0.75em;
+    }
+    }
+    @media (max-width: 480px) {
+    main {
+    
+    padding-top: 20px;
+    
+    }
+    nav ul {
+    gap: 5px;
+    }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Counter Component Documentation</h1>
+  </header>
+
+  <main>
+    <section>
+      <nav>
+        <ul>
+          <li><a href="#introduction">Introduction</a></li>
+          <li><a href="#core-files">Core Files</a></li>
+          <li><a href="#integration-guide">Integration Guide</a></li>
+          <li><a href="#adding-counter">Adding a Counter</a></li>
+          <li><a href="#configuration-attributes">Configuration</a></li>
+          <li><a href="#operational-modes">Operational Modes</a></li>
+          <li><a href="#display-format">Display Format</a></li>
+          <li><a href="#important-notes">Important Notes</a></li>
+          <li><a href="#customizing-appearance">Customizing</a></li>
+          <li><a href="#removing-counter">Removing</a></li>
+          <li><a href="#component-code">Component Code</a></li>
+        </ul>
+
+      </nav>
+    </section>
+    <section id="introduction">
+      <h2>1. Introduction</h2>
+      <p>
+        The Dynamic Date/Time Counter is a client-side JavaScript component designed to display countdowns or time-based messages on web pages. It provides flexible configuration options via HTML data attributes, allowing developers to define start and end times, custom messages for various states, and distinct operational modes, including a percentage-based notification system.
+      </p>
+    </section>
+
+    <section id="core-files">
+      <h2>2. Core Files</h2>
+      <p>
+        The component comprises two essential files:
+      </p>
+      <ul>
+        <li><strong>counter.js</strong>: Contains the core JavaScript logic responsible for time calculation, state management, and DOM manipulation to update the counter's display.</li>
+        <li><strong>counter.css</strong>: Provides the default visual styling for the counter, including distinct appearances for different operational states (e.g., active countdown, ended, percentage message).</li>
+      </ul>
+    </section>
+
+    <section id="integration-guide">
+      <h2>3. Integration Guide</h2>
+      <p>
+        To integrate the counter component into an HTML document, follow these steps:
+      </p>
+
+      <h3>3.1. File Placement</h3>
+      <p>
+        Place <strong>counter.js</strong> and <strong>counter.css</strong> in an accessible directory within your web project (e.g., `js/counter.js`, `css/counter.css`).
+      </p>
+
+      <h3>3.2. CSS Inclusion</h3>
+      <p>
+        Link <strong>counter.css</strong> within the <code>&lt;head&gt;</code> section of your HTML document. This ensures that the counter's styles are loaded early.
+      </p>
+      <div class="code-container">
+        <pre><code id="css-inclusion-code">&lt;head&gt;
+          &lt;meta charset="UTF-8"&gt;
+          &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+          &lt;title&gt;Your Document Title&lt;/title&gt;
+          &lt;link rel="stylesheet" href="path/to/counter.css"&gt;
+          &lt;!-- Other &lt;head&gt; content --&gt;
+          &lt;/head&gt;</code></pre>
+        <button class="copy-button" data-target="css-inclusion-code">Copy</button>
+        <span class="copy-message">Copied!</span>
+      </div>
+
+      <h3>3.3. JavaScript Inclusion</h3>
+      <p>
+        Include <strong>counter.js</strong> just before the closing <code>&lt;/body&gt;</code> tag. This ensures the HTML elements are fully parsed and available in the DOM before the JavaScript attempts to initialize the counters.
+      </p>
+      <div class="code-container">
+        <pre><code id="js-inclusion-code">&lt;body&gt;
+          &lt;!-- All your page content --&gt;
+
+          &lt;script src="path/to/counter.js"&gt;&lt;/script&gt;
+          &lt;/body&gt;</code></pre>
+        <button class="copy-button" data-target="js-inclusion-code">Copy</button>
+        <span class="copy-message">Copied!</span>
+      </div>
+    </section>
+
+    <section id="adding-counter">
+      <h2>4. Adding a Counter to Your Page</h2>
+      <p>
+        To instantiate a counter, add an HTML element (typically a <code>&lt;span&gt;</code> or <code>&lt;div&gt;</code>) to your document and assign it the class <strong><code>my-countdown-timer</code></strong>. All configuration parameters are then provided using <strong><code>counter-</code></strong> prefixed HTML data attributes.
+      </p>
+
+      <h3>Example: A Simple Countdown</h3>
+      <p>
+        This example demonstrates a basic countdown to a specific date and time, displaying a message once the time is reached.
+      </p>
+      <div class="code-container">
+        <pre><code id="basic-counter-code">&lt;p&gt;
+          Event countdown:
+          &lt;span class="my-countdown-timer"
+          counter-end="2025/12/31|23:59"
+          counter-message-after="Event concluded!"
+          counter-id="event-countdown"&gt;
+          &lt;/span&gt;
+          &lt;/p&gt;</code></pre>
+        <button class="copy-button" data-target="basic-counter-code">Copy</button>
+        <span class="copy-message">Copied!</span>
+      </div>
+      <p>
+        Live example: Event countdown: <span class="my-countdown-timer" counter-end="2025/12/31|23:59" counter-message-after="Event concluded!" counter-id="example-live-1"></span>
+      </p>
+    </section>
+
+    <section id="configuration-attributes">
+      <h2>5. Configuration Attributes</h2>
+      <p>
+        All date and time attributes require the precise format: <strong><code>YYYY/MM/DD|HH:MM</code></strong>.
+      </p>
+      <ul>
+        <li><strong><code>YYYY</code></strong>: Four-digit year (e.g., <code>2025</code>)</li>
+        <li><strong><code>MM</code></strong>: Two-digit month (01-12, e.g., <code>09</code> for September)</li>
+        <li><strong><code>DD</code></strong>: Two-digit day (01-31, e.g., <code>15</code>)</li>
+        <li><strong><code>HH</code></strong>: Two-digit hour (00-23, 24-hour format, e.g., <code>00</code> for midnight, <code>17</code> for 5 PM)</li>
+        <li><strong><code>MM</code></strong>: Two-digit minute (00-59, e.g., <code>30</code>)</li>
+      </ul>
+
+      <h3><code>class="my-countdown-timer"</code> (Required)</h3>
+      <p>
+        The primary CSS class that identifies an HTML element as a target for the counter component.
+      </p>
+
+      <h3><code>counter-id="..."</code> (Optional)</h3>
+      <ul>
+        <li><strong>Purpose:</strong> Assigns a unique identifier to the counter instance for debugging and identification purposes.</li>
+        <li><strong>Default:</strong> `unnamed-counter` if not specified.</li>
+        <li><strong>Example:</strong> `counter-id="sale-timer"`</li>
+      </ul>
+
+      <h3><code>counter-start="YYYY/MM/DD|HH:MM"</code> (Optional)</h3>
+      <ul>
+        <li><strong>Purpose:</strong> Defines the date and time when the counter should transition from a "before" state to an active countdown or "active" state.</li>
+        <li><strong>Behavior:</strong> If the current time is before `counter-start`, the counter displays the message defined by `counter-message-before`. If `counter-start` is omitted or in the past, the counter proceeds directly to its active state or countdown based on `counter-end`.</li>
+        <li><strong>Example:</strong> `counter-start="2025/06/01|09:00"`</li>
+      </ul>
+
+      <h3><code>counter-end="YYYY/MM/DD|HH:MM"</code> (Required for Countdown)</h3>
+      <ul>
+        <li><strong>Purpose:</strong> Specifies the target date and time to which the counter will count down.</li>
+        <li><strong>Behavior:</strong> If the current time is before `counter-end` (and after `counter-start`), the counter displays the remaining time. Once `counter-end` is reached or passed, the counter displays the message defined by `counter-message-after`. If `counter-end` is omitted, the component will not function as a countdown; it will simply activate based on `counter-start` and display its default or initial HTML content.</li>
+        <li><strong>Example:</strong> `counter-end="2025/06/15|17:30"`</li>
+      </ul>
+
+      <h3><code>counter-autohide="YYYY/MM/DD|HH:MM"</code> (Optional)</h3>
+      <ul>
+        <li><strong>Purpose:</strong> Defines a specific date and time after which the counter HTML element will be programmatically hidden from the page.</li>
+        <li><strong>Behavior:</strong> When `counter-autohide` is reached or passed, the `hidden` CSS class is applied to the counter element, setting its `display` property to `none`. If omitted, the counter will remain visible indefinitely after `counter-end` has passed, displaying its "after" message.</li>
+        <li><strong>Example:</strong> `counter-autohide="2025/06/16|00:00"`</li>
+      </ul>
+
+      <h3><code>counter-message-before="..."</code> (Optional)</h3>
+      <ul>
+        <li><strong>Purpose:</strong> Defines the custom text content displayed by the counter when the current time is before the `counter-start` time.</li>
+        <li><strong>Default:</strong> `Coming soon...`</li>
+        <li><strong>Example:</strong> `counter-message-before="Registration opens soon!"`</li>
+      </ul>
+
+      <h3><code>counter-message-after="..."</code> (Optional)</h3>
+      <ul>
+        <li><strong>Purpose:</strong> Defines the custom text content displayed by the counter when the current time has passed the `counter-end` time.</li>
+        <li><strong>Default:</strong> `Time reached!`</li>
+        <li><strong>Example:</strong> `counter-message-after="Enrollment closed. Check next year!"`</li>
+      </ul>
+    </section>
+
+    <section id="operational-modes">
+      <h2>6. Operational Modes</h2>
+      <h3><code>counter-mode="countdown" | "percentage"</code> (Optional)</h3>
+      <ul>
+        <li><strong>Purpose:</strong> Controls the operational display mode of the counter, specifically affecting the handling of percentage-based messages.</li>
+        <li><strong>Values:</strong>
+          <ul>
+            <li><strong>`countdown`</strong>: (Default mode if not specified or invalid). The counter displays a numeric countdown (`DD-HH-MM-SS` or `YY-MM-DD-HH-MM-SS`). Any `counter-Npct-message` attributes are ignored in this mode.</li>
+            <li><strong>`percentage`</strong>: Activates the percentage-based notification system. Custom messages are displayed when specific percentage thresholds of the total countdown duration are reached.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3><code>counter-Npct-message="..."</code> (Optional, for <code>counter-mode="percentage"</code> only)</h3>
+      <ul>
+        <li><strong>Purpose:</strong> Defines custom messages to be displayed when the remaining time in the countdown reaches a specific percentage threshold.</li>
+        <li><strong>Format:</strong> `counter-XXpct-message`, where `XX` is an integer from `0` to `100`.</li>
+        <li><strong>Behavior (when `counter-mode="percentage"`):</strong>
+          <ul>
+            <li>Messages trigger when the percentage of `timeRemaining` relative to `totalDurationMs` drops to or below the specified `XX` value.</li>
+            <li>A triggered message will temporarily replace the numeric countdown for a duration of <strong>3 seconds</strong>. After this period, the numeric countdown resumes.</li>
+            <li>Messages are designed to trigger once per threshold as the time progresses (e.g., the 50% message will not repeatedly display if the counter remains at 50% for an extended period).</li>
+            <li>Requires both `counter-start` and `counter-end` to calculate the total duration accurately.</li>
+            <li>Only active for countdowns with a total duration of at least 1 minute to prevent rapid, disruptive message displays.</li>
+          </ul>
+        </li>
+        <li><strong>Example:</strong> `counter-25pct-message="Less than a quarter left!"`</li>
+        <li><strong>Live Example:</strong>
+          <p>
+            Percentage mode counter: <span class="my-countdown-timer"
+              counter-start="2025/05/27|17:00"
+              counter-end="2050/05/27|17:45"
+              counter-mode="percentage"
+              counter-100pct-message="Demo counter just started!"
+              counter-75pct-message="75% left, almost there!"
+              counter-50pct-message="Halfway done, keep an eye!"
+              counter-25pct-message="Final quarter approaching!"
+              counter-10pct-message="Last 10%!"
+              counter-message-after="Demo concluded."
+              counter-id="example-live-2"
+              ></span>
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="display-format">
+      <h2>7. Countdown Display Format</h2>
+      <p>
+        The numeric countdown displays as: <strong><code>[YY-MM-]DD-HH-MM-SS</code></strong>.
+      </p>
+      <ul>
+        <li><strong><code>YY</code></strong>: Years (padded with leading zero).</li>
+        <li><strong><code>MM</code></strong>: Months (padded with leading zero).</li>
+        <li><strong><code>DD</code></strong>: Days (padded with leading zero).</li>
+        <li><strong><code>HH</code></strong>: Hours (padded with leading zero).</li>
+        <li><strong><code>MM</code></strong>: Minutes (padded with leading zero).</li>
+        <li><strong><code>SS</code></strong>: Seconds (padded with leading zero).</li>
+      </ul>
+      <p>
+        <strong>Note on Years/Months Display:</strong> The <code>YY-MM-</code> prefix is only included in the display string if the remaining time is approximately one year or longer. For shorter durations, only `DD-HH-MM-SS` is displayed.
+      </p>
+    </section>
+
+    <section id="important-notes">
+      <h2>8. Important Notes</h2>
+      <ul>
+        <li><strong>Client-Side Time Dependency:</strong> The counter relies on the local system time of the user's device. Discrepancies in the user's device clock will directly affect the perceived accuracy of the countdown.</li>
+        <li><strong>Invalid Date Handling:</strong> If a `counter-` attribute contains a date/time string that cannot be parsed (e.g., `2025/02/30|10:00`), a warning will be logged to the browser's console, and that specific attribute will be disregarded. The component will attempt to function based on the remaining valid configurations.</li>
+        <li><strong>No <code>counter-end</code> Behavior:</strong> If the `counter-end` attribute is omitted, the component will not display a numerical countdown. It will transition from the "before" message to a default "active" state (displaying its initial HTML content or "Active!" if empty) once `counter-start` is met.</li>
+        <li><strong>CSS Class Management:</strong> The component dynamically applies and removes specific CSS classes to the counter element based on its current operational state. These classes allow for detailed visual customization:
+          <ul>
+            <li>`my-countdown-timer` (Base class, always present)</li>
+            <li>`message` (Applied when displaying `counter-message-before` or a generic "active" message)</li>
+            <li>`countdown-active` (Applied when displaying a numeric countdown)</li>
+            <li>`percentage-message` (Applied when a `counter-Npct-message` is active)</li>
+            <li>`ended` (Applied when `counter-end` has passed)</li>
+            <li>`hidden` (Applied when `counter-autohide` has passed)</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="customizing-appearance">
+      <h2>9. Customizing the Counter's Appearance</h2>
+      <p>
+        The visual presentation of the counter is managed entirely via <strong><code>counter.css</code></strong>. This file can be modified to align the counter's appearance with the specific design language of your website.
+      </p>
+      <p>
+        To customize, simply open `counter.css` in your preferred code editor and modify the CSS rules. The class names correspond to the counter's states as listed in the "Important Notes" section.
+      </p>
+
+      <h3>Example CSS Modifications:</h3>
+      <div class="code-container">
+        <pre><code id="css-customization-code">
+          .my-countdown-timer {
+          font-size: 1.2em;
+          background-color: #f0f8ff; 
+          border: 1px solid #cceeff; 
+          color: #336699; 
+          }
+
+          
+          .my-countdown-timer.countdown-active {
+          background-color: #e0ffe0; 
+          color: #008000;             
+          border-color: #008000;
+          }
+
+          
+          .my-countdown-timer.percentage-message {
+          font-weight: bold;
+          color: #a0522d; 
+          background-color: #fff8dc; 
+          border: 1px dashed #a0522d;
+          }</code></pre>
+        <button class="copy-button" data-target="css-customization-code">Copy</button>
+        <span class="copy-message">Copied!</span>
+      </div>
+    </section>
+
+    <section id="removing-counter">
+      <h2>10. Removing the Counter</h2>
+      <p>
+        To remove the counter component from your website, simply reverse the integration steps:
+      </p>
+      <ol>
+        <li><strong>Remove Counter HTML:</strong> Delete the <code>&lt;span&gt;</code> or <code>&lt;div&gt;</code> elements that have the <code>class="my-countdown-timer"</code> from your HTML document.</li>
+        <li><strong>Remove JavaScript Inclusion:</strong> Delete the line <code>&lt;script src="path/to/counter.js"&gt;&lt;/script&gt;</code> from your HTML document (usually near the closing <code>&lt;/body&gt;</code> tag).</li>
+        <li><strong>Remove CSS Inclusion:</strong> Delete the line <code>&lt;link rel="stylesheet" href="path/to/counter.css"&gt;</code> from the <code>&lt;head&gt;</code> section of your HTML document.</li>
+        <li><strong>Delete Files:</strong> If no other components or parts of your website rely on them, you can safely delete the <code>counter.js</code> and <code>counter.css</code> files from your server.</li>
+      </ol>
+    </section>
+
+    <section id="component-code">
+      <h2>11. Component Code</h2>
+      <p>
+        For your convenience, the complete code for both <code>counter.js</code> and <code>counter.css</code> is provided below.
+      </p>
+
+      <h3>11.1. <code>counter.js</code></h3>
+      <div class="code-container">
+        <pre><code id="full-js-code">document.addEventListener('DOMContentLoaded', () => {
+          const counterElements = document.querySelectorAll('.my-countdown-timer');
+          counterElements.forEach(element => {
+          new Counter(element);
+          });
+          });
+
+          class Counter {
+          constructor(element) {
+          this.element = element;
+          this.id = element.getAttribute('counter-id') || 'unnamed-counter';
+
+          this.startTime = this.parseDateTime(this.element.getAttribute('counter-start'));
+          this.endTime = this.parseDateTime(this.element.getAttribute('counter-end'));
+          this.autohideTime = this.parseDateTime(this.element.getAttribute('counter-autohide'));
+
+          this.messageBefore = this.element.getAttribute('counter-message-before') || 'Coming soon...';
+          this.messageAfter = this.element.getAttribute('counter-message-after') || 'Time reached!';
+
+          this.mode = this.element.getAttribute('counter-mode') || 'countdown'; 
+
+          this.percentageMessages = {};
+          if (this.mode === 'percentage') { 
+          for (let i = 0; i < this.element.attributes.length; i++) {
+            const attr = this.element.attributes[i];
+            const match = attr.name.match(/^counter-(\d+)pct-message$/);
+            if (match) {
+            const percentage = parseInt(match[1], 10);
+            if (!isNaN(percentage) && percentage >= 0 && percentage <= 100) {
+              this.percentageMessages[percentage] = attr.value;
+              }
+              }
+              }
+              }
+
+              this.totalDurationMs = null;
+              if (this.startTime && this.endTime) {
+              this.totalDurationMs = this.endTime.getTime() - this.startTime.getTime();
+              if (this.totalDurationMs < 0) this.totalDurationMs = 0;
+                }
+
+                this.lastTriggeredPercentage = Infinity; 
+                this.percentageMessageTimeout = null; 
+                this.isDisplayingPercentageMessage = false; 
+
+                this.updateDisplay(); 
+                this.interval = setInterval(() => this.updateDisplay(), 1000); 
+                }
+
+                parseDateTime(dateTimeString) {
+                if (!dateTimeString) return null;
+                const parts = dateTimeString.split('|');
+                if (parts.length !== 2) {
+                console.warn(`Counter ID ${this.id}: Invalid date format: ${dateTimeString}. Expected YYYY/MM/DD|HH:MM`);
+                return null;
+                }
+                const [year, month, day] = parts[0].split('/').map(Number);
+                const [hour, minute] = parts[1].split(':').map(Number);
+                const date = new Date(year, month - 1, day, hour, minute, 0, 0);
+
+                if (isNaN(date.getTime()) ||
+                date.getFullYear() !== year || date.getMonth() !== month - 1 ||
+                date.getDate() !== day || date.getHours() !== hour || date.getMinutes() !== minute) {
+                console.warn(`Counter ID ${this.id}: Parsed date mismatch or invalid for "${dateTimeString}".`);
+                return null;
+                }
+                return date;
+                }
+
+                formatTimeDifference(ms) {
+                if (ms < 0) ms = 0;
+                  let totalSeconds = Math.floor(ms / 1000);
+
+                  const SECONDS_IN_MINUTE = 60;
+                  const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * 60;
+                  const SECONDS_IN_DAY = SECONDS_IN_HOUR * 24;
+                  const SECONDS_IN_MONTH_AVG = SECONDS_IN_DAY * 30.4375;
+                  const SECONDS_IN_YEAR_AVG = SECONDS_IN_DAY * 365.25;
+
+                  let years = 0, months = 0, days = 0, hours = 0, minutes = 0, seconds = 0;
+
+                  if (totalSeconds >= SECONDS_IN_YEAR_AVG) {
+                  years = Math.floor(totalSeconds / SECONDS_IN_YEAR_AVG);
+                  totalSeconds -= (years * SECONDS_IN_YEAR_AVG);
+
+                  months = Math.floor(totalSeconds / SECONDS_IN_MONTH_AVG);
+                  totalSeconds -= (months * SECONDS_IN_MONTH_AVG);
+
+                  days = Math.floor(totalSeconds / SECONDS_IN_DAY);
+                  totalSeconds -= (days * SECONDS_IN_DAY);
+
+                  hours = Math.floor(totalSeconds / SECONDS_IN_HOUR);
+                  totalSeconds -= (hours * SECONDS_IN_HOUR);
+
+                  minutes = Math.floor(totalSeconds / SECONDS_IN_MINUTE);
+                  totalSeconds -= (minutes * SECONDS_IN_MINUTE);
+
+                  seconds = totalSeconds;
+
+                  return `${String(years).padStart(2, '0')}-${String(months).padStart(2, '0')}-${String(days).padStart(2, '0')}-${String(hours).padStart(2, '0')}-${String(minutes).padStart(2, '0')}-${String(seconds).padStart(2, '0')}`;
+                  } else {
+                  days = Math.floor(totalSeconds / SECONDS_IN_DAY);
+                  totalSeconds -= (days * SECONDS_IN_DAY);
+
+                  hours = Math.floor(totalSeconds / SECONDS_IN_HOUR);
+                  totalSeconds -= (hours * SECONDS_IN_HOUR);
+
+                  minutes = Math.floor(totalSeconds / SECONDS_IN_MINUTE);
+                  totalSeconds -= (minutes * SECONDS_IN_MINUTE);
+
+                  seconds = totalSeconds;
+
+                  return `${String(days).padStart(2, '0')}-${String(hours).padStart(2, '0')}-${String(minutes).padStart(2, '0')}-${String(seconds).padStart(2, '0')}`;
+                  }
+                  }
+
+                  updateDisplay() {
+                  const now = new Date();
+                  this.element.classList.remove('message', 'countdown-active', 'percentage-message', 'ended', 'hidden');
+
+                  
+                  if (this.startTime && now < this.startTime) {
+                    this.element.textContent = this.messageBefore;
+                    this.element.classList.add('message');
+                    this.element.style.display = (this.endTime || this.autohideTime) ? '' : 'none'; 
+                    this.lastTriggeredPercentage = Infinity; 
+                    if (this.percentageMessageTimeout) clearTimeout(this.percentageMessageTimeout);
+                    this.isDisplayingPercentageMessage = false;
+                    return;
+                    }
+
+                    
+                    this.element.style.display = '';
+
+                    
+                    if (this.endTime) {
+                    const timeRemaining = this.endTime.getTime() - now.getTime();
+
+                    if (timeRemaining > 0) {
+                    
+                    
+                    if (this.isDisplayingPercentageMessage) {
+                    return;
+                    }
+
+                    this.element.textContent = this.formatTimeDifference(timeRemaining);
+                    this.element.classList.add('countdown-active');
+
+                    
+                    if (this.mode === 'percentage' && this.totalDurationMs > 0 && this.totalDurationMs >= (60 * 1000)) { 
+                    const percentageRemaining = (timeRemaining / this.totalDurationMs) * 100;
+                    let messageToShow = null;
+
+                    
+                    const sortedPercentages = Object.keys(this.percentageMessages).map(Number).sort((a, b) => b - a);
+
+                    for (const pct of sortedPercentages) {
+                    
+                    
+                    if (percentageRemaining <= pct + 0.001 && pct < this.lastTriggeredPercentage) {
+                      messageToShow = this.percentageMessages[pct];
+                      this.lastTriggeredPercentage = pct; 
+                      break; 
+                      }
+                      }
+
+                      if (messageToShow) {
+                      
+                      if (this.percentageMessageTimeout) clearTimeout(this.percentageMessageTimeout);
+
+                      this.element.textContent = messageToShow;
+                      this.element.classList.add('percentage-message');
+                      this.element.classList.remove('countdown-active'); 
+                      this.isDisplayingPercentageMessage = true; 
+
+                      
+                      this.percentageMessageTimeout = setTimeout(() => {
+                      this.isDisplayingPercentageMessage = false;
+                      this.updateDisplay(); 
+                      }, 3000); 
+
+                      return; 
+                      }
+                      }
+
+                      } else {
+                      
+                      this.element.textContent = this.messageAfter;
+                      this.element.classList.add('ended');
+                      this.lastTriggeredPercentage = Infinity; 
+                      if (this.percentageMessageTimeout) clearTimeout(this.percentageMessageTimeout);
+                      this.isDisplayingPercentageMessage = false;
+
+                      
+                      if (!this.autohideTime) {
+                      clearInterval(this.interval);
+                      }
+                      }
+                      } else if (this.startTime && now >= this.startTime) {
+                      
+                      this.element.textContent = this.element.textContent || "Active!";
+                      this.element.classList.add('message');
+                      this.lastTriggeredPercentage = Infinity; 
+                      if (this.percentageMessageTimeout) clearTimeout(this.percentageMessageTimeout);
+                      this.isDisplayingPercentageMessage = false;
+                      }
+
+                      
+                      if (this.autohideTime && now >= this.autohideTime) {
+                      this.element.classList.add('hidden');
+                      clearInterval(this.interval); 
+                      }
+                      }
+                      }</code></pre>
+                    <button class="copy-button" data-target="full-js-code">Copy</button>
+                    <span class="copy-message">Copied!</span>
+                  </div>
+
+                  <h3>11.2. <code>counter.css</code></h3>
+                  <div class="code-container">
+                    <pre><code id="full-css-code">
+                      .my-countdown-timer {
+                      box-sizing: border-box; 
+                      font-family: 'Courier New', Courier, monospace; 
+                      font-size: 1.1em;
+                      font-weight: bold;
+                      color: #007bff;
+                      background-color: #e9ecef;
+                      padding: 2px 5px;
+                      border-radius: 3px;
+                      white-space: nowrap; 
+                      display: inline-block; 
+                      min-width: 120px; 
+                      text-align: center;
+                      transition: background-color 0.3s ease, color 0.3s ease; 
+                      vertical-align: middle; 
+                      }
+
+                      
+
+                      
+                      .my-countdown-timer.message {
+                      background-color: #e0f7fa;
+                      color: #007bff;
+                      font-weight: normal;
+                      font-size: 1em;
+                      font-style: italic;
+                      }
+
+                      
+                      .my-countdown-timer.countdown-active {
+                      background-color: #d4edda;
+                      color: #28a745;
+                      }
+
+                      
+                      .my-countdown-timer.percentage-message {
+                      background-color: #ffe0b2;
+                      color: #ff9800;
+                      font-weight: bold;
+                      font-size: 1.1em;
+                      font-style: normal;
+                      }
+
+                      
+                      .my-countdown-timer.ended {
+                      background-color: #f8d7da;
+                      color: #dc3545;
+                      font-weight: bold;
+                      font-size: 1.1em;
+                      }
+
+                      
+                      .my-countdown-timer.hidden {
+                      display: none !important; 
+                      }</code></pre>
+                    <button class="copy-button" data-target="full-css-code">Copy</button>
+                    <span class="copy-message">Copied!</span>
+                  </div>
+                </section>
+              </main>
+
+              <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                const copyButtons = document.querySelectorAll('.copy-button');
+                copyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                const targetId = button.dataset.target;
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                const codeToCopy = targetElement.textContent;
+                navigator.clipboard.writeText(codeToCopy).then(() => {
+                const messageSpan = button.nextElementSibling;
+                messageSpan.classList.add('show');
+                setTimeout(() => {
+                messageSpan.classList.remove('show');
+                }, 1500);
+                }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy code. Please copy manually.');
+                });
+                }
+                });
+                });
+
+                class Counter {
+                constructor(element) {
+                this.element = element;
+                this.id = element.getAttribute('counter-id') || 'unnamed-counter';
+
+                this.startTime = this.parseDateTime(this.element.getAttribute('counter-start'));
+                this.endTime = this.parseDateTime(this.element.getAttribute('counter-end'));
+                this.autohideTime = this.parseDateTime(this.element.getAttribute('counter-autohide'));
+
+                this.messageBefore = this.element.getAttribute('counter-message-before') || 'Coming soon...';
+                this.messageAfter = this.element.getAttribute('counter-message-after') || 'Time reached!';
+
+                this.mode = this.element.getAttribute('counter-mode') || 'countdown';
+                this.percentageMessages = {};
+                if (this.mode === 'percentage') {
+                for (let i = 0; i < this.element.attributes.length; i++) {
+                const attr = this.element.attributes[i];
+                const match = attr.name.match(/^counter-(\d+)pct-message$/);
+                if (match) {
+                const percentage = parseInt(match[1], 10);
+                if (!isNaN(percentage) && percentage >= 0 && percentage <= 100) {
+                this.percentageMessages[percentage] = attr.value;
+                }
+                }
+                }
+                }
+
+                this.totalDurationMs = null;
+                if (this.startTime && this.endTime) {
+                this.totalDurationMs = this.endTime.getTime() - this.startTime.getTime();
+                if (this.totalDurationMs < 0) this.totalDurationMs = 0;
+                }
+
+                this.lastTriggeredPercentage = Infinity;
+                this.percentageMessageTimeout = null;
+                this.isDisplayingPercentageMessage = false;
+                this.updateDisplay();
+                this.interval = setInterval(() => this.updateDisplay(), 1000);
+                }
+
+                parseDateTime(dateTimeString) {
+                if (!dateTimeString) return null;
+                const parts = dateTimeString.split('|');
+                if (parts.length !== 2) {
+                console.warn(`Counter ID ${this.id}: Invalid date format: ${dateTimeString}. Expected YYYY/MM/DD|HH:MM`);
+                return null;
+                }
+                const [year, month, day] = parts[0].split('/').map(Number);
+                const [hour, minute] = parts[1].split(':').map(Number);
+                const date = new Date(year, month - 1, day, hour, minute, 0, 0);
+                if (isNaN(date.getTime()) ||
+                date.getFullYear() !== year || date.getMonth() !== month - 1 ||
+                date.getDate() !== day || date.getHours() !== hour || date.getMinutes() !== minute) {
+                console.warn(`Counter ID ${this.id}: Parsed date mismatch or invalid for "${dateTimeString}".`);
+                return null;
+                }
+                return date;
+                }
+
+                formatTimeDifference(ms) {
+                if (ms < 0) ms = 0;
+                let totalSeconds = Math.floor(ms / 1000);
+
+                const SECONDS_IN_MINUTE = 60;
+                const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * 60;
+                const SECONDS_IN_DAY = SECONDS_IN_HOUR * 24;
+                const SECONDS_IN_MONTH_AVG = SECONDS_IN_DAY * 30.4375;
+                const SECONDS_IN_YEAR_AVG = SECONDS_IN_DAY * 365.25;
+
+                let years = 0, months = 0, days = 0, hours = 0, minutes = 0, seconds = 0;
+
+                if (totalSeconds >= SECONDS_IN_YEAR_AVG) {
+                years = Math.floor(totalSeconds / SECONDS_IN_YEAR_AVG);
+                totalSeconds -= (years * SECONDS_IN_YEAR_AVG);
+
+                months = Math.floor(totalSeconds / SECONDS_IN_MONTH_AVG);
+                totalSeconds -= (months * SECONDS_IN_MONTH_AVG);
+
+                days = Math.floor(totalSeconds / SECONDS_IN_DAY);
+                totalSeconds -= (days * SECONDS_IN_DAY);
+
+                hours = Math.floor(totalSeconds / SECONDS_IN_HOUR);
+                totalSeconds -= (hours * SECONDS_IN_HOUR);
+
+                minutes = Math.floor(totalSeconds / SECONDS_IN_MINUTE);
+                totalSeconds -= (minutes * SECONDS_IN_MINUTE);
+
+                seconds = totalSeconds;
+
+                return `${String(years).padStart(2, '0')}-${String(months).padStart(2, '0')}-${String(days).padStart(2, '0')}-${String(hours).padStart(2, '0')}-${String(minutes).padStart(2, '0')}-${String(seconds).padStart(2, '0')}`;
+                } else {
+                days = Math.floor(totalSeconds / SECONDS_IN_DAY);
+                totalSeconds -= (days * SECONDS_IN_DAY);
+
+                hours = Math.floor(totalSeconds / SECONDS_IN_HOUR);
+                totalSeconds -= (hours * SECONDS_IN_HOUR);
+
+                minutes = Math.floor(totalSeconds / SECONDS_IN_MINUTE);
+                totalSeconds -= (minutes * SECONDS_IN_MINUTE);
+
+                seconds = totalSeconds;
+
+                return `${String(days).padStart(2, '0')}-${String(hours).padStart(2, '0')}-${String(minutes).padStart(2, '0')}-${String(seconds).padStart(2, '0')}`;
+                }
+                }
+
+                updateDisplay() {
+                const now = new Date();
+                this.element.classList.remove('message', 'countdown-active', 'percentage-message', 'ended', 'hidden');
+                if (this.startTime && now < this.startTime) {
+                this.element.textContent = this.messageBefore;
+                this.element.classList.add('message');
+                this.element.style.display = (this.endTime || this.autohideTime) ? '': 'none';
+                this.lastTriggeredPercentage = Infinity;
+                if (this.percentageMessageTimeout) clearTimeout(this.percentageMessageTimeout);
+                this.isDisplayingPercentageMessage = false;
+                return;
+                }
+                this.element.style.display = '';
+                if (this.endTime) {
+                const timeRemaining = this.endTime.getTime() - now.getTime();
+
+                if (timeRemaining > 0) {
+                if (this.isDisplayingPercentageMessage) {
+                return;
+                }
+
+                this.element.textContent = this.formatTimeDifference(timeRemaining);
+                this.element.classList.add('countdown-active');
+                if (this.mode === 'percentage' && this.totalDurationMs > 0 && this.totalDurationMs >= (60 * 1000)) {
+                const percentageRemaining = (timeRemaining / this.totalDurationMs) * 100;
+                let messageToShow = null;
+                const sortedPercentages = Object.keys(this.percentageMessages).map(Number).sort((a, b) => b - a);
+
+                for (const pct of sortedPercentages) {
+                if (percentageRemaining <= pct + 0.001 && pct < this.lastTriggeredPercentage) {
+                messageToShow = this.percentageMessages[pct];
+                this.lastTriggeredPercentage = pct;
+                break;
+                }
+                }
+
+                if (messageToShow) {
+                if (this.percentageMessageTimeout) clearTimeout(this.percentageMessageTimeout);
+
+                this.element.textContent = messageToShow;
+                this.element.classList.add('percentage-message');
+                this.element.classList.remove('countdown-active');
+                this.isDisplayingPercentageMessage = true;
+                this.percentageMessageTimeout = setTimeout(() => {
+                this.isDisplayingPercentageMessage = false;
+                this.updateDisplay();
+                }, 3000);
+                return;
+                }
+                }
+
+                } else {
+                this.element.textContent = this.messageAfter;
+                this.element.classList.add('ended');
+                this.lastTriggeredPercentage = Infinity;
+                if (this.percentageMessageTimeout) clearTimeout(this.percentageMessageTimeout);
+                this.isDisplayingPercentageMessage = false;
+                if (!this.autohideTime) {
+                clearInterval(this.interval);
+                }
+                }
+                } else if (this.startTime && now >= this.startTime) {
+                this.element.textContent = this.element.textContent || "Active!";
+                this.element.classList.add('message');
+                this.lastTriggeredPercentage = Infinity;
+                if (this.percentageMessageTimeout) clearTimeout(this.percentageMessageTimeout);
+                this.isDisplayingPercentageMessage = false;
+                }
+                if (this.autohideTime && now >= this.autohideTime) {
+                this.element.classList.add('hidden');
+                clearInterval(this.interval);
+                }
+                }
+                }
+                const counterElements = document.querySelectorAll('.my-countdown-timer');
+                counterElements.forEach(element => {
+                new Counter(element);
+                });
+                });
+
+              </script>
+            </body>
+          </html>
